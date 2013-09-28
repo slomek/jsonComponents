@@ -1,0 +1,18 @@
+.jsonTable {
+	font-family: Tahoma;
+	font-size: 12px;
+	border-spacing: 0;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.jsonTable .header {
+	background-image: url('images/colBkg.gif');
+	background-position: bottom center;
+	background-repeat: repeat-x;
+	background-size: auto 100%;
+}
+
+.jsonTable .header .tr {
+	height: 20px;
+}
