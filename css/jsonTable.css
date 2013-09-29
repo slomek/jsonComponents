@@ -17,6 +17,6 @@
 	height: 20px;
 }
 
-.jsonTable tbody {
-	overflow: auto;
+.selectCell {
+	text-align: center;
 }

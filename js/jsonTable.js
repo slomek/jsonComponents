@@ -31,6 +31,7 @@
 			},
 
 			_renderTable: function() {
+				this.element.addClass('jsonTableContainer');
 				this.table = $('<table>')
 						.addClass('jsonTable')
 						.appendTo(this.element);
@@ -88,10 +89,12 @@
 							})
 							.change(function(){
 								var value = $(this).prop('checked');
+								$(row).data('item').selected=value;
 								_this.options.rowSelect($(row), value);
 								_this._setAllSelected();
 							});
 					$('<td>')
+						.addClass('selectCell')
 						.append(cbx)
 						.appendTo(row);
 
@@ -187,9 +190,11 @@
 			},
 	
 			getData: function() {
-				return $('.dataRow', this.table).map(function(index, row){
-					return $(row).data('item');
+				var dataArray = [];
+				$('.dataRow', this.table).each(function(index, row){
+					dataArray.push($(row).data('item'));
 				});
+				return dataArray;
 
 			},
 
@@ -233,6 +238,23 @@
 				var row = this.getRow(rowId);
 				var zeroBasedColId = this.columnMap[columnName]+1;
 				$('td:nth-of-type('+zeroBasedColId+')', row).text(value);
+			},
+
+			updateData: function(newData, place) {
+				$('tbody', this.element).remove();
+				if(!!!place || place === 'instead') {
+					this.options.data = newData;
+					this._renderBody();
+					this._setAllSelected();
+				} else if(place === 'start') {
+					var data = this.options.data;
+					newData.push.apply(newData, data);
+					this.updateData(newData);
+				} else if(place === 'end') {
+					var data = this.options.data;
+					data.push.apply(data, newData);
+					this.updateData(data);
+				}
 			}
 
 		});
