@@ -6,13 +6,17 @@
 	width: 100%;
 }
 
-.jsonTable .header {
+.jsonTable thead {
 	background-image: url('images/colBkg.gif');
 	background-position: bottom center;
 	background-repeat: repeat-x;
 	background-size: auto 100%;
 }
 
-.jsonTable .header .tr {
+.jsonTable thead .tr {
 	height: 20px;
+}
+
+.jsonTable tbody {
+	overflow: auto;
 }

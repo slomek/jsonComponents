@@ -38,15 +38,14 @@
 
 			_renderHeader: function() {
 				var _this = this;
-				var header = $('<thead>')
-						.addClass('header');
+				var header = $('<thead>');
 				var headerRow = $('<tr>')
 						.addClass('headerRow')
 						.css(this.options.cssHeader)
 						.appendTo(header);
 				this._renderHeaderSelect(headerRow);
 				this.options.columns.forEach(function(c) {
-					$('<td>')
+					$('<th>')
 						.text(_this._getColumnName(c))
 						.appendTo(headerRow);
 				});
@@ -71,7 +70,7 @@
 								});
 							}
 						});
-					$('<td>')
+					$('<th>')
 						.append(selectAllCbx)
 						.appendTo(headerRow);
 				}
@@ -127,19 +126,32 @@
 					_this._renderSelect(row);
 					_this.options.columns.forEach(function(c){
 						var columnField = _this._getColumnField(c);
+						var value = _this._getItemsValue(item, columnField);
 						$('<td>')
 							.text(item[columnField])
+							.text(value)
 							.appendTo(row);
 					});
 				});
 				body.appendTo(this.table);
 			},
 
+			_getItemsValue: function(item, columnField) {
+				if(columnField.indexOf('>') == -1) {
+					return item[columnField];
+				} else {
+					var parts = columnField.split('>');
+					var primary = parts[0];
+					var secondary = parts[1];
+					return item[primary][secondary];
+				}
+			},
+
 			_getColumnName: function(column) {
 					if(typeof column ==='string') {
 						return column;
 					} else {
-						return column.display;
+						return column.display || column.name;
 					}
 				},
 
