@@ -242,7 +242,7 @@
 
 			updateData: function(newData, place) {
 				$('tbody', this.element).remove();
-				if(!!!place || place === 'instead') {
+				if(!place || place === 'instead') {
 					this.options.data = newData;
 					this._renderBody();
 					this._setAllSelected();
@@ -255,7 +255,28 @@
 					data.push.apply(data, newData);
 					this.updateData(data);
 				}
-			}
+			},
+
+			sort: function(field, order) {
+				var data = this.options.data;
+				var dir;
+				if(!order || order === 'asc') {
+					dir = 1;
+				} else {
+					dir = -1;
+				}
+				var data = this.options.data.sort(
+						function(f,s){
+							if(f[field]>s[field]) {
+								 return 1*dir;
+							} else if(f[field]<s[field]) {
+								 return -1*dir;
+							} else {
+								return 0; 
+							}
+						});
+				this.updateData(data);
+			}	
 
 		});
 	});
