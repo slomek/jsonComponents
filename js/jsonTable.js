@@ -1,6 +1,6 @@
 (function ($) {
 	$(document).ready(function(){
-		$.widget( "ui.jsonTable", {
+		$.widget( "slomek.jsonTable", {
 
 			table : null,
 			columnMap: {},
