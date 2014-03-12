@@ -20,3 +20,30 @@
 .selectCell {
 	text-align: center;
 }
+
+.jsonTable .floatingHeader {
+	position: fixed;
+	top: 0;
+	visibility: hidden;
+}
+
+
+.button2_element{
+    background-color: #3E3E3E;
+    color: white;
+    font-size: 11px;
+    height: 19px;
+    border: 2px solid #B5B5B5;
+    padding: 2px 12px 3px;
+    cursor: pointer;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.no_selection {
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+}

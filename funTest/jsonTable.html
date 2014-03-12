@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="jquery-1.9.0.min.js"></script>
+	<script type="text/javascript" src="jquery-ui-1.10.2.custom.min.js"></script>
+
+	<script type="text/javascript" src="../js/jsonTable.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var data = [];
+			for (var i = 1; i <= 1000; i++) {
+				data.push({id: i, name: 'obiekt_'+i});
+			};
+
+			$('#jsonTableContainer').jsonTable({
+				selectable: {
+					init: false
+				},
+				columns: [
+						{
+							name: 'id',
+							display: function(){
+								return "IDKI123"
+							}
+						},
+						{
+							name: 'name',
+							display: 'Na<br/>zwa'							
+						}						
+					],
+				data: data,
+				cssCells: false,
+				pagination: {
+					itemsPerPage: 13
+				}
+			})
+		});		
+	</script>
+
+	<link rel="stylesheet" type="text/css" href="../css/jsonTable.css">
+
+	<style type="text/css">
+	</style>
+</head>
+<body>
+
+	<!-- <div id="outterDiv" style="height: 200px; overflow: scroll;"> -->
+		<div id="jsonTableContainer"></div>
+	<!-- </div>	 -->
+
+</body>
+</html>
