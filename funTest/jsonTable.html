@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title></title>
+
 	<script type="text/javascript" src="jquery-1.9.0.min.js"></script>
 	<script type="text/javascript" src="jquery-ui-1.10.2.custom.min.js"></script>
 
@@ -15,8 +16,12 @@
 
 			$('#jsonTableContainer').jsonTable({
 				selectable: {
-					init: false
+					init: false,
+					columnCss: {
+						width: '25px'
+					}
 				},
+				draggableSort: true,
 				columns: [
 						{
 							name: 'id',
@@ -26,19 +31,18 @@
 						},
 						{
 							name: 'name',
-							display: 'Na<br/>zwa'							
+							display: 'Na<br/>zwa'
 						}						
 					],
-				data: data,
-				cssCells: false,
-				pagination: {
-					itemsPerPage: 13
-				}
+				data: data
+				// ,
+				// cssCells: false
 			})
 		});		
 	</script>
 
 	<link rel="stylesheet" type="text/css" href="../css/jsonTable.css">
+	<link rel="stylesheet" type="text/css" href="../css/external/jquery-ui-1.10.4.custom.min.css">
 
 	<style type="text/css">
 	</style>

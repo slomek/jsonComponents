@@ -75,6 +75,22 @@
 				this._renderHeader();
 				this._renderBody();
 				this._renderPagination();
+				this._postRender();
+			},
+
+			_postRender: function() {
+				if(this.options.draggableSort) {
+					this.element.find('tbody').sortable({
+						handle: '.draggableSort',
+						placeholder: "ui-state-highlight",
+						start: function(evt,ui) {
+							var cells = ui.item.find('td');
+							$.each(cells, function(i, c){
+								console.log($(c).width());
+							});
+						}
+					})
+				}
 			},
 
 			_mapColumns: function() {
@@ -109,6 +125,7 @@
 						.css(c.css || {})
 						.appendTo(headerRow);
 				});
+				this._renderSortHandle(headerRow);
 				header.appendTo(this.table);
 
 				header
@@ -184,6 +201,7 @@
 							_this._setAllSelected();
 						});
 					$('<th>')
+						.css(_this.options.selectable.columnCss || {})
 						.append(selectAllCbx)
 						.appendTo(headerRow);
 				}
@@ -214,6 +232,21 @@
 				}
 			},
 
+			_renderSortHandle: function(row) {
+				var _this = this;
+				if(this.options.draggableSort){
+					var icon = $('<span>').addClass('ui-icon ui-icon-arrowthick-2-n-s');
+					$('<td>')
+						.addClass('draggableSort')
+						.css({
+							'width': '25px',
+							'text-align': 'center'
+						})
+						.append(icon)
+						.appendTo(row);
+				}	
+			},
+
 			_setAllSelected: function() {
 				var selectedCount = $('.select:checked', this.table).length;
 				var allCount = $('.select', this.table).length;
@@ -241,20 +274,29 @@
 					_this._renderSelect(row);
 					$.each(_this.options.columns, function(index, c){
 						var columnField = _this._getColumnField(c);
-						var value = _this._getItemsValue(item, columnField);
+						var columnWidth = _this._getColumnWidth(index);
+						var value = _this._getItemsValue(item, columnField);						
+						console.log(index, columnWidth);
 						$('<td>')
 							.html(value)
 							.click(function(){
 								(c.onclick || $.noop)(value, c, item);
 							})
+							.css('width', columnWidth)
 							.appendTo(row);
 					});
+					_this._renderSortHandle(row);
 				});
 				body.appendTo(this.table);				
 
 				if(this.options.cssCells){
 					$('td', body).css(this.options.cssCells);				
 				}				
+			},
+
+			_getColumnWidth: function(index) {
+				var offset = this.options.selectable ? 1 : 0;
+				return $(this.element.find('th')[index + offset]).width();
 			},
 
 			_renderPagination: function() {
